@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shri Sanvaliya Restaurant</title>
+<style>
+    * {margin:0; padding:0; box-sizing:border-box; font-family: 'Poppins', sans-serif;}
+    body {overflow-x: hidden; background:#111; color:#fff;}
+    html {scroll-behavior:smooth;}
+
+    /* Hero Section */
+    .hero {
+        position: relative;
+        width: 100%;
+        height: 70vh;
+        background: url('rahul5.jpg') center/cover no-repeat;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+    }
+    .hero::after {
+        content: "";
+        position: absolute;
+        top:0; left:0; width:100%; height:100%;
+        background: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.8));
+    }
+    .hero-content {position: relative; z-index: 2;}
+
+    .hero h1 {
+        font-size: 2.8rem;
+        text-shadow: 0 0 15px #ffcc00;
+        animation: glow 2s infinite alternate;
+    }
+    .hero p {margin-top:10px; font-weight: bold;}
+
+    @keyframes glow {
+        0%{text-shadow:0 0 5px #ffcc00;}
+        100%{text-shadow:0 0 25px #ff9900;}
+    }
+
+    /* Stylish Offer Bar inside Hero */
+    .offer-bar {
+        margin-top: 20px;
+        background: linear-gradient(45deg, #ffcc00, #ff9900);
+        color:#000;
+        padding:12px 25px;
+        border-radius:30px;
+        font-weight:bold;
+        display:inline-block;
+        animation: pulse 1.5s infinite;
+        box-shadow:0 0 20px rgba(255,204,0,0.7);
+    }
+    @keyframes pulse {
+        0% {transform:scale(1);}
+        50% {transform:scale(1.08);}
+        100% {transform:scale(1);}
+    }
+
+    /* Image Gallery */
+    .image-gallery {
+        display: flex; 
+        overflow-x: auto;
+        padding: 20px;
+        background: rgba(255,255,255,0.1);
+        gap: 15px;
+    }
+    .gallery-item {
+        position: relative;
+        min-width: 150px;
+        height: 100px;
+        flex-shrink: 0;
+        cursor: pointer;
+        border-radius: 10px;
+        overflow: hidden;
+        border:2px solid #ffcc00;
+        transition: transform 0.3s;
+    }
+    .gallery-item:hover {transform: scale(1.1);}
+    .gallery-item img {width:100%; height:100%; object-fit: cover;}
+    .gallery-item span {
+        position: absolute;
+        top:5px; left:5px;
+        background: rgba(0,0,0,0.7);
+        color:#fff; font-size:0.8rem;
+        padding:2px 6px; border-radius: 5px;
+    }
+
+    /* Lightbox */
+    .lightbox {
+        display:none; position:fixed; top:0; left:0; width:100%; height:100%;
+        background: rgba(0,0,0,0.9); justify-content:center; align-items:center;
+        z-index:2000;
+    }
+    .lightbox img {
+        max-width:90%; max-height:80%; border:5px solid #fff; border-radius:10px;
+    }
+
+    /* Menu Section */
+    .menu {
+        padding:40px 20px; color:#fff; text-align:center;
+        background:hsla(124, 23%, 17%, 0.92); backdrop-filter: blur(5px);
+    }
+    .menu h2 {font-size:2rem; margin-bottom:20px; color:#ffcc00;}
+    .items {display:grid; grid-template-columns: repeat(auto-fit,minmax(200px,1fr)); gap:20px;}
+    .item {
+        background: rgba(255,255,255,0.2);
+        padding:20px; border-radius:15px; backdrop-filter: blur(3px);
+        transition:0.3s;
+    }
+    .item:hover {transform:scale(1.05); background: rgba(255,255,255,0.4);}
+    .item h3 {margin-bottom:10px; color:#fff;}
+    .item p {font-size:0.9rem; color:#f0f0f0;}
+
+    footer {
+        text-align:center; color: black; padding:15px; margin-top:20px;
+        background:#E4ECE9
+    }
+</style>
+</head>
+<body>
+
+<!-- Hero Section with Offer -->
+<section class="hero">
+    <div class="hero-content">
+        <h1>Shri Sanvaliya Restaurant</h1>
+        <p>Delicious Indian & Chinese Cuisine | Dine In & Takeaway</p>
+        <div class="offer-bar">🔥 Today's Offer: Get 20% Off on All Orders! 🔥</div>
+    </div>
+</section>
+
+<!-- Image Gallery -->
+<div class="image-gallery">
+    <div class="gallery-item"><img src="rahul1.jpg" onclick="openLightbox(this.src)"><span>1</span></div>
+    <div class="gallery-item"><img src="rahul2.jpg" onclick="openLightbox(this.src)"><span>2</span></div>
+    <div class="gallery-item"><img src="rahul3.jpg" onclick="openLightbox(this.src)"><span>3</span></div>
+    <div class="gallery-item"><img src="rahul4.jpg" onclick="openLightbox(this.src)"><span>4</span></div>
+    <div class="gallery-item"><img src="rahul5.jpg" onclick="openLightbox(this.src)"><span>5</span></div>
+</div>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox" onclick="this.style.display='none'">
+    <img id="lightbox-img">
+</div>
+
+<!-- Menu -->
+<section class="menu">
+    <h2>Our Special Menu</h2>
+    <div class="items">
+        <div class="item"><h3>Paneer Butter Masala</h3><p>Creamy & rich Indian classic with fresh paneer.</p></div>
+        <div class="item"><h3>Shuddh Shakahari</h3><p>Stir-fried Chinese noodles with vegetables & sauces.</p></div>
+        <div class="item"><h3>Bhindi Masala & Chapati</h3><p>Spicy & crispy with soft chapati tossed in ghee.</p></div>
+        <div class="item"><h3>Dal Tadka</h3><p>Traditional yellow dal tempered with ghee & spices.</p></div>
+        <div class="item"><h3>Spring Rolls</h3><p>Crispy Chinese snack filled with veggies.</p></div>
+        <div class="item"><h3>Butter Naan</h3><p>Soft & buttery naan baked to perfection.</p></div>
+    </div>
+</section>
+
+<footer>
+    © 2025 Shri Sanvaliya Restaurant | web developer Ankit Patidar®
+</footer>
+
+<script>
+function openLightbox(src) {
+    document.getElementById('lightbox-img').src = src;
+    document.getElementById('lightbox').style.display = 'flex';
+}
+</script>
+
+</body>
+</html>
